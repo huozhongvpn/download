@@ -18,7 +18,112 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+            position: relative;
+            overflow-x: hidden;
         }
+        
+        /* 新增：动态背景图标 */
+        .background-icons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            font-size: 45px;
+            opacity: 0.15;
+            animation: float 25s infinite ease-in-out;
+            filter: blur(0.8px);
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.15;
+            }
+            25% {
+                transform: translateY(-40px) rotate(90deg);
+                opacity: 0.22;
+            }
+            50% {
+                transform: translateY(-80px) rotate(180deg);
+                opacity: 0.15;
+            }
+            75% {
+                transform: translateY(-40px) rotate(270deg);
+                opacity: 0.22;
+            }
+        }
+        
+        /* 左侧国旗分布 */
+        .floating-icon:nth-child(1) { top: 5%; left: 3%; animation-delay: 0s; font-size: 48px; }
+        .floating-icon:nth-child(2) { top: 12%; left: 8%; animation-delay: 2s; font-size: 42px; }
+        .floating-icon:nth-child(3) { top: 20%; left: 5%; animation-delay: 4s; font-size: 46px; }
+        .floating-icon:nth-child(4) { top: 28%; left: 10%; animation-delay: 1s; font-size: 40px; }
+        .floating-icon:nth-child(5) { top: 36%; left: 4%; animation-delay: 3s; font-size: 47px; }
+        .floating-icon:nth-child(6) { top: 44%; left: 9%; animation-delay: 5s; font-size: 43px; }
+        .floating-icon:nth-child(7) { top: 52%; left: 6%; animation-delay: 2.5s; font-size: 41px; }
+        .floating-icon:nth-child(8) { top: 60%; left: 11%; animation-delay: 4.5s; font-size: 49px; }
+        .floating-icon:nth-child(9) { top: 68%; left: 7%; animation-delay: 1.5s; font-size: 44px; }
+        .floating-icon:nth-child(10) { top: 76%; left: 4%; animation-delay: 3.5s; font-size: 45px; }
+        .floating-icon:nth-child(11) { top: 84%; left: 9%; animation-delay: 5.5s; font-size: 42px; }
+        .floating-icon:nth-child(12) { top: 92%; left: 6%; animation-delay: 0.8s; font-size: 46px; }
+        
+        /* 左中区域 */
+        .floating-icon:nth-child(13) { top: 8%; left: 18%; animation-delay: 2.8s; font-size: 43px; }
+        .floating-icon:nth-child(14) { top: 16%; left: 22%; animation-delay: 4.8s; font-size: 47px; }
+        .floating-icon:nth-child(15) { top: 25%; left: 20%; animation-delay: 1.8s; font-size: 41px; }
+        .floating-icon:nth-child(16) { top: 34%; left: 24%; animation-delay: 3.8s; font-size: 48px; }
+        .floating-icon:nth-child(17) { top: 43%; left: 19%; animation-delay: 5.8s; font-size: 44px; }
+        .floating-icon:nth-child(18) { top: 51%; left: 23%; animation-delay: 2.3s; font-size: 40px; }
+        .floating-icon:nth-child(19) { top: 59%; left: 21%; animation-delay: 4.3s; font-size: 46px; }
+        .floating-icon:nth-child(20) { top: 67%; left: 18%; animation-delay: 1.3s; font-size: 42px; }
+        .floating-icon:nth-child(21) { top: 75%; left: 24%; animation-delay: 3.3s; font-size: 45px; }
+        .floating-icon:nth-child(22) { top: 83%; left: 20%; animation-delay: 5.3s; font-size: 43px; }
+        .floating-icon:nth-child(23) { top: 90%; left: 22%; animation-delay: 0.3s; font-size: 47px; }
+        
+        /* 右中区域 */
+        .floating-icon:nth-child(24) { top: 6%; left: 76%; animation-delay: 1.2s; font-size: 44px; }
+        .floating-icon:nth-child(25) { top: 14%; left: 80%; animation-delay: 3.2s; font-size: 48px; }
+        .floating-icon:nth-child(26) { top: 23%; left: 78%; animation-delay: 5.2s; font-size: 42px; }
+        .floating-icon:nth-child(27) { top: 32%; left: 81%; animation-delay: 2.2s; font-size: 46px; }
+        .floating-icon:nth-child(28) { top: 41%; left: 77%; animation-delay: 4.2s; font-size: 41px; }
+        .floating-icon:nth-child(29) { top: 49%; left: 82%; animation-delay: 0.2s; font-size: 47px; }
+        .floating-icon:nth-child(30) { top: 57%; left: 79%; animation-delay: 3.7s; font-size: 43px; }
+        .floating-icon:nth-child(31) { top: 65%; left: 76%; animation-delay: 5.7s; font-size: 49px; }
+        .floating-icon:nth-child(32) { top: 73%; left: 81%; animation-delay: 1.7s; font-size: 40px; }
+        .floating-icon:nth-child(33) { top: 81%; left: 78%; animation-delay: 4.7s; font-size: 45px; }
+        .floating-icon:nth-child(34) { top: 88%; left: 80%; animation-delay: 2.7s; font-size: 44px; }
+        
+        /* 右侧国旗分布 */
+        .floating-icon:nth-child(35) { top: 4%; left: 90%; animation-delay: 0.5s; font-size: 42px; }
+        .floating-icon:nth-child(36) { top: 11%; left: 94%; animation-delay: 2.5s; font-size: 46px; }
+        .floating-icon:nth-child(37) { top: 19%; left: 92%; animation-delay: 4.5s; font-size: 43px; }
+        .floating-icon:nth-child(38) { top: 27%; left: 96%; animation-delay: 1.5s; font-size: 47px; }
+        .floating-icon:nth-child(39) { top: 35%; left: 91%; animation-delay: 3.5s; font-size: 41px; }
+        .floating-icon:nth-child(40) { top: 43%; left: 95%; animation-delay: 5.5s; font-size: 48px; }
+        .floating-icon:nth-child(41) { top: 51%; left: 93%; animation-delay: 2.6s; font-size: 44px; }
+        .floating-icon:nth-child(42) { top: 59%; left: 90%; animation-delay: 4.6s; font-size: 40px; }
+        .floating-icon:nth-child(43) { top: 67%; left: 94%; animation-delay: 0.6s; font-size: 46px; }
+        .floating-icon:nth-child(44) { top: 75%; left: 92%; animation-delay: 3.6s; font-size: 42px; }
+        .floating-icon:nth-child(45) { top: 83%; left: 96%; animation-delay: 5.6s; font-size: 45px; }
+        .floating-icon:nth-child(46) { top: 91%; left: 93%; animation-delay: 1.6s; font-size: 43px; }
+        
+        /* 顶部和底部补充 */
+        .floating-icon:nth-child(47) { top: 2%; left: 35%; animation-delay: 2.9s; font-size: 44px; }
+        .floating-icon:nth-child(48) { top: 2%; left: 50%; animation-delay: 4.9s; font-size: 47px; }
+        .floating-icon:nth-child(49) { top: 2%; left: 65%; animation-delay: 1.9s; font-size: 41px; }
+        .floating-icon:nth-child(50) { top: 96%; left: 30%; animation-delay: 3.9s; font-size: 48px; }
+        .floating-icon:nth-child(51) { top: 96%; left: 45%; animation-delay: 5.9s; font-size: 42px; }
+        .floating-icon:nth-child(52) { top: 96%; left: 60%; animation-delay: 0.9s; font-size: 46px; }
+        .floating-icon:nth-child(53) { top: 96%; left: 75%; animation-delay: 2.4s; font-size: 43px; }
+        
         .container {
             background-color: rgba(255, 255, 255, 0.95);
             padding: 50px;
@@ -28,6 +133,8 @@
             max-width: 600px;
             width: 100%;
             border: 1px solid rgba(255, 165, 0, 0.1);
+            position: relative;
+            z-index: 1;
         }
         .logo {
             width: 120px;
@@ -173,6 +280,10 @@
         
         /* 移动端优化 */
         @media (max-width: 480px) {
+            .floating-icon {
+                font-size: 32px;
+            }
+            
             .container {
                 padding: 30px 15px;
             }
@@ -199,6 +310,64 @@
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
+    <!-- 新增：动态背景层 - 全部国旗 -->
+    <div class="background-icons">
+        <!-- 主要国家国旗 -->
+        <div class="floating-icon">🇺🇸</div>
+        <div class="floating-icon">🇬🇧</div>
+        <div class="floating-icon">🇯🇵</div>
+        <div class="floating-icon">🇩🇪</div>
+        <div class="floating-icon">🇫🇷</div>
+        <div class="floating-icon">🇨🇦</div>
+        <div class="floating-icon">🇦🇺</div>
+        <div class="floating-icon">🇰🇷</div>
+        <div class="floating-icon">🇸🇬</div>
+        <div class="floating-icon">🇮🇹</div>
+        <div class="floating-icon">🇪🇸</div>
+        <div class="floating-icon">🇳🇱</div>
+        <div class="floating-icon">🇸🇪</div>
+        <div class="floating-icon">🇨🇭</div>
+        <div class="floating-icon">🇧🇷</div>
+        <div class="floating-icon">🇮🇳</div>
+        <div class="floating-icon">🇷🇺</div>
+        <div class="floating-icon">🇲🇽</div>
+        <div class="floating-icon">🇦🇷</div>
+        <div class="floating-icon">🇹🇷</div>
+        <div class="floating-icon">🇸🇦</div>
+        <div class="floating-icon">🇿🇦</div>
+        <div class="floating-icon">🇹🇭</div>
+        <div class="floating-icon">🇮🇩</div>
+        <div class="floating-icon">🇵🇭</div>
+        <div class="floating-icon">🇻🇳</div>
+        <div class="floating-icon">🇲🇾</div>
+        <div class="floating-icon">🇵🇱</div>
+        <div class="floating-icon">🇧🇪</div>
+        <div class="floating-icon">🇦🇹</div>
+        <div class="floating-icon">🇳🇴</div>
+        <div class="floating-icon">🇩🇰</div>
+        <div class="floating-icon">🇫🇮</div>
+        <div class="floating-icon">🇵🇹</div>
+        <div class="floating-icon">🇬🇷</div>
+        <div class="floating-icon">🇮🇪</div>
+        <div class="floating-icon">🇳🇿</div>
+        <div class="floating-icon">🇨🇱</div>
+        <div class="floating-icon">🇨🇴</div>
+        <div class="floating-icon">🇵🇪</div>
+        <div class="floating-icon">🇪🇬</div>
+        <div class="floating-icon">🇮🇱</div>
+        <div class="floating-icon">🇦🇪</div>
+        <div class="floating-icon">🇨🇿</div>
+        <div class="floating-icon">🇭🇺</div>
+        <div class="floating-icon">🇷🇴</div>
+        <div class="floating-icon">🇺🇦</div>
+        <div class="floating-icon">🇭🇰</div>
+        <div class="floating-icon">🇹🇼</div>
+        <div class="floating-icon">🇵🇰</div>
+        <div class="floating-icon">🇧🇩</div>
+        <div class="floating-icon">🇳🇬</div>
+        <div class="floating-icon">🇰🇪</div>
+    </div>
+
     <div class="container">
         <img src="https://r2.r2hz.top/hzlogo.jpg" alt="火种" class="logo">
         <h3>使用火种 连接世界 <br />免费加速 一键翻墙</h3>
@@ -211,7 +380,7 @@
         <div class="alert-box">
             <i class="fas fa-exclamation-triangle alert-icon"></i>
             <div class="alert-text">
-                <strong>提示：</strong>如果直接点击无法下载，请使用浏览器输入网址【huozhong.my】【hzhzhz.cc】下载即可。
+                <strong>提示：</strong>如果直接点击无法下载,请使用浏览器输入网址【huozhong.my】【hzhzhz.cc】下载即可。
             </div>
         </div>
         
@@ -236,5 +405,6 @@
             <a href="https://github.com/huozhongvpn/" target="_blank"><i class="fab fa-github"></i></a>
         </div>
         
+    </div>
 </body>
 </html>
