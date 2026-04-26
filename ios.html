@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>外区 Apple ID 注册与切换教程</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5efe6;
+    --bg-soft: #ebe3d5;
+    --paper: #fdfaf3;
+    --ink: #1f1d1a;
+    --ink-soft: #4a4640;
+    --ink-mute: #7a7368;
+    --line: #d8cebc;
+    --accent: #b8543a;
+    --accent-deep: #8c3a26;
+    --gold: #c9974a;
+    --warn-bg: #fdf3e5;
+    --warn-line: #e8c388;
+    --warn-ink: #8a5a14;
+    --danger-bg: #fbe9e3;
+    --danger-line: #e8a896;
+    --danger-ink: #8c2a14;
+    --good-bg: #e9efe1;
+    --good-line: #b6c79b;
+    --good-ink: #4a6224;
+    --serif: 'Noto Serif SC', 'Songti SC', serif;
+    --sans: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+    --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 84, 58, 0.04) 0%, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(201, 151, 74, 0.05) 0%, transparent 45%);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Action Bar (top entry buttons) */
+  .action-bar {
+    background: linear-gradient(135deg, #2a2723 0%, #1f1d1a 100%);
+    padding: 28px 24px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .action-bar::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(184, 84, 58, 0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .action-bar::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    left: -10%;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(201, 151, 74, 0.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .action-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .action-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    text-align: center;
+    opacity: 0.85;
+  }
+
+  .action-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 20px 22px;
+    background: rgba(253, 250, 243, 0.04);
+    border: 1px solid rgba(216, 206, 188, 0.18);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(6px);
+    min-height: 130px;
+  }
+
+  .action-btn:hover {
+    background: rgba(253, 250, 243, 0.08);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .action-btn.primary {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+    border-color: var(--accent);
+  }
+
+  .action-btn.primary:hover {
+    background: linear-gradient(135deg, #c95e44 0%, #9c4530 100%);
+    border-color: var(--gold);
+  }
+
+  .action-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(253, 250, 243, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--paper);
+    flex-shrink: 0;
+  }
+
+  .action-btn.primary .action-icon {
+    background: rgba(253, 250, 243, 0.2);
+  }
+
+  .action-text {
+    width: 100%;
+  }
+
+  .action-eyebrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.9;
+  }
+
+  .action-btn.primary .action-eyebrow {
+    color: rgba(253, 250, 243, 0.85);
+  }
+
+  .action-title {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--paper);
+    line-height: 1.35;
+    margin-bottom: 4px;
+  }
+
+  .action-desc {
+    font-size: 12.5px;
+    color: rgba(253, 250, 243, 0.6);
+    line-height: 1.5;
+  }
+
+  .action-btn.primary .action-desc {
+    color: rgba(253, 250, 243, 0.8);
+  }
+
+  .action-arrow {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    width: 22px;
+    height: 22px;
+    color: var(--gold);
+    opacity: 0.7;
+    transition: transform 0.25s, opacity 0.25s;
+  }
+
+  .action-btn:hover .action-arrow {
+    transform: translate(2px, -2px);
+    opacity: 1;
+  }
+
+  .action-btn.primary .action-arrow {
+    color: var(--paper);
+    opacity: 0.9;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 80px 24px 60px;
+    max-width: 880px;
+    margin: 0 auto;
+    text-align: left;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 60px;
+    left: 24px;
+    width: 60px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    margin-top: 24px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+
+  h1 .accent { color: var(--accent); }
+
+  .lead {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 640px;
+    line-height: 1.85;
+  }
+
+  .meta {
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    font-size: 13px;
+    color: var(--ink-mute);
+  }
+
+  .meta strong { color: var(--ink); font-weight: 500; }
+
+  /* TOC */
+  .toc {
+    max-width: 880px;
+    margin: 40px auto 60px;
+    padding: 32px 32px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+
+  .toc h3 {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    color: var(--ink);
+  }
+
+  .toc ol {
+    list-style: none;
+    counter-reset: toc;
+  }
+
+  .toc li {
+    counter-increment: toc;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .toc li:last-child { border-bottom: none; }
+
+  .toc li::before {
+    content: counter(toc, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    min-width: 28px;
+  }
+
+  .toc a {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.2s;
+  }
+
+  .toc a:hover { color: var(--accent); }
+
+  /* Sections */
+  section {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 60px 24px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    padding-top: 12px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3.5vw, 36px);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  .section-sub {
+    color: var(--ink-mute);
+    font-size: 15px;
+    margin-top: 8px;
+    font-weight: 400;
+  }
+
+  /* Step cards */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .step {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .step:hover { border-color: var(--gold); }
+
+  .step-head {
+    padding: 20px 28px;
+    background: linear-gradient(to right, rgba(184, 84, 58, 0.06), transparent);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .step-badge {
+    width: 36px;
+    height: 36px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .step-title {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  .step-body {
+    padding: 24px 28px 28px;
+  }
+
+  .step-body p {
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+
+  .step-body p:last-child { margin-bottom: 0; }
+
+  .step-body strong { color: var(--ink); font-weight: 600; }
+
+  .step-body code {
+    font-family: var(--mono);
+    font-size: 13px;
+    background: var(--bg-soft);
+    padding: 2px 8px;
+    border-radius: 3px;
+    color: var(--accent-deep);
+  }
+
+  .step-body ul {
+    list-style: none;
+    margin: 12px 0;
+  }
+
+  .step-body ul li {
+    padding-left: 22px;
+    position: relative;
+    margin-bottom: 8px;
+    color: var(--ink-soft);
+  }
+
+  .step-body ul li::before {
+    content: '◦';
+    position: absolute;
+    left: 6px;
+    color: var(--accent);
+    font-weight: bold;
+  }
+
+  /* Tip / Warn / Danger boxes */
+  .note {
+    margin: 16px 0;
+    padding: 14px 18px;
+    border-left: 3px solid;
+    border-radius: 0 3px 3px 0;
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+
+  .note.tip {
+    background: var(--good-bg);
+    border-color: var(--good-line);
+    color: var(--good-ink);
+  }
+
+  .note.warn {
+    background: var(--warn-bg);
+    border-color: var(--warn-line);
+    color: var(--warn-ink);
+  }
+
+  .note.danger {
+    background: var(--danger-bg);
+    border-color: var(--danger-line);
+    color: var(--danger-ink);
+  }
+
+  .note .label {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin-right: 8px;
+    text-transform: uppercase;
+  }
+
+  .note strong { font-weight: 700; }
+
+  /* Address box */
+  .address-box {
+    background: var(--bg-soft);
+    border: 1px dashed var(--ink-mute);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin: 18px 0;
+    font-family: var(--mono);
+    font-size: 13.5px;
+    line-height: 2;
+    color: var(--ink);
+    position: relative;
+  }
+
+  .address-box .copy-tag {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    font-size: 11px;
+    color: var(--ink-mute);
+    font-family: var(--sans);
+    letter-spacing: 0.05em;
+  }
+
+  .address-row { display: flex; gap: 12px; }
+  .address-row .key {
+    color: var(--ink-mute);
+    min-width: 90px;
+    font-size: 12.5px;
+  }
+  .address-row .val { color: var(--ink); font-weight: 500; }
+
+  /* Checklist */
+  .checklist {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin: 24px 0;
+  }
+
+  .checklist h4 {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+
+  .checklist-item {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+    align-items: flex-start;
+  }
+
+  .checklist-item:last-child { border-bottom: none; }
+
+  .check-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--good-bg);
+    border: 1.5px solid var(--good-line);
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--good-ink);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .check-text {
+    flex: 1;
+    color: var(--ink-soft);
+    font-size: 14.5px;
+  }
+
+  .check-text strong { color: var(--ink); }
+
+  /* FAQ */
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    padding: 20px 0;
+  }
+
+  .faq-q {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .faq-q::before {
+    content: 'Q.';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-weight: 500;
+  }
+
+  .faq-a {
+    color: var(--ink-soft);
+    padding-left: 28px;
+    position: relative;
+    font-size: 14.5px;
+    line-height: 1.85;
+  }
+
+  .faq-a::before {
+    content: 'A.';
+    position: absolute;
+    left: 0;
+    color: var(--ink-mute);
+    font-family: var(--mono);
+  }
+
+  /* Big warning callout */
+  .big-warning {
+    background: var(--danger-bg);
+    border: 1px solid var(--danger-line);
+    border-left: 6px solid var(--danger-ink);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin: 28px 0;
+  }
+
+  .big-warning .title {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--danger-ink);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .big-warning .title::before {
+    content: '!';
+    width: 24px;
+    height: 24px;
+    background: var(--danger-ink);
+    color: var(--danger-bg);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .big-warning p {
+    color: var(--danger-ink);
+    font-size: 14.5px;
+    line-height: 1.8;
+  }
+
+  /* Path indicator (for navigation steps) */
+  .path {
+    background: var(--bg-soft);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink);
+    display: inline-block;
+    border: 1px solid var(--line);
+  }
+
+  .path .arrow {
+    color: var(--accent);
+    margin: 0 6px;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 80px;
+    padding: 48px 24px;
+    background: var(--ink);
+    color: var(--bg);
+    text-align: center;
+  }
+
+  footer .inner {
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  footer .brand {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--bg);
+  }
+
+  footer p {
+    font-size: 14px;
+    color: var(--bg-soft);
+    opacity: 0.7;
+    line-height: 1.8;
+  }
+
+  footer .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 20px auto;
+  }
+
+  /* Decorative dot */
+  .deco-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin: 0 8px;
+    vertical-align: middle;
+  }
+
+  /* Phone illustration */
+  .phone-mock {
+    background: var(--ink);
+    border-radius: 24px;
+    padding: 12px;
+    max-width: 280px;
+    margin: 20px auto;
+    box-shadow: 0 8px 24px rgba(31, 29, 26, 0.15);
+  }
+
+  .phone-screen {
+    background: var(--paper);
+    border-radius: 16px;
+    padding: 18px 16px;
+    min-height: 100px;
+    font-size: 13px;
+  }
+
+  .phone-screen .row {
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .phone-screen .row:last-child { border-bottom: none; }
+
+  .phone-screen .row .label-text { color: var(--ink); }
+  .phone-screen .row .value-text { color: var(--ink-mute); font-size: 12px; }
+
+  .phone-screen .highlight {
+    background: var(--warn-bg);
+    margin: 0 -8px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    color: var(--warn-ink);
+    font-weight: 500;
+  }
+
+  /* ========== Tablet & Mobile ========== */
+  @media (max-width: 900px) {
+    .action-grid {
+      gap: 12px;
+    }
+    .action-btn {
+      padding: 18px 18px;
+      min-height: 120px;
+    }
+    .action-title {
+      font-size: 15px;
+    }
+    .action-desc {
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    body { font-size: 15px; }
+
+    /* Action bar - stack to single column */
+    .action-bar {
+      padding: 22px 16px 26px;
+    }
+    .action-label {
+      font-size: 10px;
+      margin-bottom: 14px;
+    }
+    .action-grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .action-btn {
+      flex-direction: row;
+      align-items: center;
+      min-height: auto;
+      padding: 16px 18px;
+      gap: 16px;
+    }
+    .action-icon {
+      width: 42px;
+      height: 42px;
+      font-size: 20px;
+    }
+    .action-text {
+      flex: 1;
+    }
+    .action-eyebrow {
+      font-size: 9px;
+      margin-bottom: 4px;
+    }
+    .action-title {
+      font-size: 16px;
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
+    .action-title br {
+      display: none;
+    }
+    .action-desc {
+      font-size: 12px;
+    }
+    .action-arrow {
+      position: static;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 48px 20px 36px;
+    }
+    .hero::before {
+      top: 32px;
+      left: 20px;
+      width: 40px;
+    }
+    .eyebrow {
+      font-size: 11px;
+      margin-top: 16px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 28px;
+      line-height: 1.25;
+    }
+    .lead {
+      font-size: 15px;
+      line-height: 1.8;
+    }
+    .meta {
+      margin-top: 28px;
+      padding-top: 20px;
+      gap: 10px 20px;
+      font-size: 12px;
+      flex-direction: column;
+    }
+
+    /* TOC */
+    .toc {
+      margin: 24px 16px 36px;
+      padding: 22px 20px;
+    }
+    .toc h3 {
+      font-size: 16px;
+      margin-bottom: 14px;
+    }
+    .toc li {
+      padding: 9px 0;
+      gap: 12px;
+    }
+    .toc a {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .toc li::before {
+      font-size: 11px;
+      min-width: 24px;
+    }
+
+    /* Sections */
+    section {
+      padding: 36px 16px;
+    }
+    .section-header {
+      flex-direction: column;
+      gap: 6px;
+      padding-bottom: 14px;
+      margin-bottom: 28px;
+    }
+    .section-num {
+      padding-top: 0;
+      font-size: 11px;
+    }
+    .section-title {
+      font-size: 22px;
+    }
+    .section-sub {
+      font-size: 13px;
+    }
+
+    /* Steps */
+    .steps {
+      gap: 18px;
+    }
+    .step-head {
+      padding: 14px 18px;
+      gap: 12px;
+    }
+    .step-badge {
+      width: 30px;
+      height: 30px;
+      font-size: 13px;
+    }
+    .step-title {
+      font-size: 15.5px;
+      line-height: 1.4;
+    }
+    .step-body {
+      padding: 18px 18px 20px;
+    }
+    .step-body p {
+      font-size: 14.5px;
+      margin-bottom: 12px;
+    }
+    .step-body ul li {
+      font-size: 14px;
+      padding-left: 18px;
+    }
+
+    /* Notes / warnings */
+    .note {
+      padding: 12px 14px;
+      font-size: 13.5px;
+    }
+    .big-warning {
+      padding: 18px 20px;
+      margin: 22px 0;
+    }
+    .big-warning .title {
+      font-size: 16px;
+    }
+    .big-warning p {
+      font-size: 13.5px;
+    }
+
+    /* Address box */
+    .address-box {
+      padding: 16px 18px;
+      font-size: 12.5px;
+    }
+    .address-box .copy-tag {
+      position: static;
+      display: block;
+      margin-bottom: 10px;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+    }
+    .address-row {
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .address-row .key {
+      min-width: 70px;
+      font-size: 11.5px;
+    }
+
+    /* Checklist */
+    .checklist {
+      padding: 20px 18px;
+    }
+    .checklist h4 {
+      font-size: 15.5px;
+      margin-bottom: 12px;
+    }
+    .checklist-item {
+      padding: 11px 0;
+      gap: 12px;
+    }
+    .check-icon {
+      width: 20px;
+      height: 20px;
+      font-size: 11px;
+    }
+    .check-text {
+      font-size: 13.5px;
+      line-height: 1.7;
+    }
+
+    /* FAQ */
+    .faq-item {
+      padding: 16px 0;
+    }
+    .faq-q {
+      font-size: 15px;
+      padding-left: 24px;
+    }
+    .faq-a {
+      font-size: 13.5px;
+      padding-left: 24px;
+    }
+
+    /* Phone mock */
+    .phone-mock {
+      max-width: 240px;
+    }
+
+    /* Optional address heading */
+    section h3 {
+      font-size: 18px !important;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 56px;
+      padding: 36px 20px;
+    }
+    footer .brand {
+      font-size: 17px;
+    }
+    footer p {
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .hero { padding: 40px 16px 30px; }
+    h1 { font-size: 25px; }
+    .lead { font-size: 14.5px; }
+    section { padding: 32px 14px; }
+    .section-title { font-size: 20px; }
+    .step-head { padding: 12px 14px; }
+    .step-body { padding: 16px 14px 18px; }
+    .step-title { font-size: 14.5px; }
+    .toc { margin: 20px 12px 32px; padding: 18px 16px; }
+    .action-bar { padding: 20px 12px 24px; }
+    .action-btn { padding: 14px 14px; gap: 12px; }
+    .action-title { font-size: 15px; }
+    .action-icon { width: 38px; height: 38px; }
+  }
+
+  /* Print-friendly */
+  @media print {
+    body { background: white; }
+    .step:hover { border-color: var(--line); }
+    .action-bar { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP ACTION BAR -->
+<div class="action-bar">
+  <div class="action-inner">
+    <div class="action-label">— 快速入口 · Quick Access —</div>
+    <div class="action-grid">
+
+      <a href="https://apps.apple.com/app/hzvpn/id6747108508" class="action-btn primary" target="_blank" rel="noopener">
+        <div class="action-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+        </div>
+        <div class="action-text">
+          <div class="action-eyebrow">推荐 · Recommended</div>
+          <div class="action-title">火种 VPN<br>iOS 下载</div>
+          <div class="action-desc">App Store 直接下载</div>
+        </div>
+        <svg class="action-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+      </a>
+
+      <a href="#prep" class="action-btn">
+        <div class="action-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+        </div>
+        <div class="action-text">
+          <div class="action-eyebrow">免费 · Free Tutorial</div>
+          <div class="action-title">自己申请<br>Apple ID</div>
+          <div class="action-desc">查看下方完整图文教程</div>
+        </div>
+        <svg class="action-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+
+      <a href="http://goso001.com/?from=13447" class="action-btn" target="_blank" rel="noopener">
+        <div class="action-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        </div>
+        <div class="action-text">
+          <div class="action-eyebrow">便捷 · Convenient</div>
+          <div class="action-title">购买<br>国外 App 账号</div>
+          <div class="action-desc">现成账号即买即用</div>
+        </div>
+        <svg class="action-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="eyebrow">Apple ID 注册指南 · 海外应用解锁教程</div>
+  <h1>如何申请并使用<br><span class="accent">外区 Apple ID</span> 下载我们的 App</h1>
+  <p class="lead">
+    由于政策原因，本应用仅在中国大陆以外的 App Store 上架。如果你的 Apple ID 注册地为中国大陆，需要先申请一个外区（推荐美区）Apple ID，并在 App Store 中切换登录后即可下载。本教程将一步一步带你完成全过程，<strong>无需信用卡、无需海外手机号</strong>，只需 5 分钟。
+  </p>
+  <div class="meta">
+    <span><strong>所需材料</strong>：邮箱 · 中国大陆手机号</span>
+    <span><strong>耗时</strong>：约 5 分钟</span>
+    <span><strong>成本</strong>：完全免费</span>
+  </div>
+</header>
+
+<!-- TOC -->
+<nav class="toc">
+  <h3>本教程包含三个部分</h3>
+  <ol>
+    <li><a href="#prep">注册前的准备工作</a></li>
+    <li><a href="#register">第一步 · 通过 Apple 官网注册外区 ID</a></li>
+    <li><a href="#switch">第二步 · 在 App Store 切换账号下载本 App</a></li>
+    <li><a href="#faq">常见问题与注意事项</a></li>
+  </ol>
+</nav>
+
+<!-- PREP -->
+<section id="prep">
+  <div class="section-header">
+    <div class="section-num">SECTION&nbsp;01</div>
+    <div>
+      <div class="section-title">注册前的准备工作</div>
+      <div class="section-sub">材料越"干净"，注册越容易一次通过</div>
+    </div>
+  </div>
+
+  <div class="checklist">
+    <h4>请先准备好以下三样东西</h4>
+    <div class="checklist-item">
+      <div class="check-icon">1</div>
+      <div class="check-text">
+        <strong>一个全新的电子邮箱</strong><br>
+        推荐使用 Gmail 或 Outlook，且该邮箱<strong>从未注册过任何 Apple ID</strong>。尽量避免使用 QQ、163、126 等国内邮箱，容易触发风控。
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon">2</div>
+      <div class="check-text">
+        <strong>一个中国大陆手机号（+86）</strong><br>
+        可以使用你日常使用的手机号，<strong>同一个手机号可绑定多个不同地区的 Apple ID</strong>，不会影响账号归属地区，也不会影响你已有的国区账号。
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon">3</div>
+      <div class="check-text">
+        <strong>一个浏览器（建议 Safari 或 Chrome 的无痕模式）</strong><br>
+        在手机或电脑上均可操作，无需开启 VPN 或代理。无痕模式可避免缓存导致的地区识别错误。
+      </div>
+    </div>
+  </div>
+
+  <div class="big-warning">
+    <div class="title">注册前请务必阅读</div>
+    <p>
+      <strong>不要把已有国区账号直接"切换地区"到美国。</strong>这种操作会强制要求你绑定美国信用卡或 PayPal，并且必须先清空账户余额、取消所有订阅，操作复杂且容易导致主力账号被风控。<strong>正确做法是单独注册一个全新的外区账号</strong>，专门用于下载海外应用，与你的国区账号互不影响。
+    </p>
+  </div>
+</section>
+
+<!-- REGISTER -->
+<section id="register">
+  <div class="section-header">
+    <div class="section-num">SECTION&nbsp;02</div>
+    <div>
+      <div class="section-title">通过 Apple 官网注册外区 Apple ID</div>
+      <div class="section-sub">全程在浏览器中完成，约 3 分钟</div>
+    </div>
+  </div>
+
+  <div class="steps">
+
+    <!-- Step 1 -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-badge">1</div>
+        <div class="step-title">打开 Apple 账户官网，开始创建</div>
+      </div>
+      <div class="step-body">
+        <p>使用浏览器访问 Apple 账户官网：</p>
+        <p><span class="path">https://account.apple.com</span></p>
+        <p>点击页面右上角的 <strong>"创建您的 Apple 账户"</strong>（Create Your Apple Account）。</p>
+        <div class="note tip">
+          <span class="label">提示</span>建议在 Safari 或 Chrome 的<strong>无痕窗口</strong>中打开，避免浏览器缓存影响地区识别。
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-badge">2</div>
+        <div class="step-title">填写基本信息（这一步是关键）</div>
+      </div>
+      <div class="step-body">
+        <p>按照以下方式填写表单字段：</p>
+        <ul>
+          <li><strong>国家或地区</strong>：选择 <code>United States</code>（这是注册成为美区 ID 的关键）</li>
+          <li><strong>姓名</strong>：可填写英文随意名字（如 John / Smith）</li>
+          <li><strong>出生日期</strong>：必须选择 <strong>18 岁以上</strong>的日期，否则很多 App 无法下载</li>
+          <li><strong>电子邮箱</strong>：填写你准备好的全新 Gmail/Outlook 邮箱</li>
+          <li><strong>密码</strong>：8 位以上，需包含大小写字母与数字（不能含姓名/生日/邮箱前缀）</li>
+          <li><strong>电话号码</strong>：选择 <code>China mainland (+86)</code>，输入你的中国手机号</li>
+        </ul>
+        <div class="note warn">
+          <span class="label">注意</span>"国家或地区"必须在<strong>注册时</strong>就选好美国，后续切换地区会麻烦得多。
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-badge">3</div>
+        <div class="step-title">完成手机和邮箱双重验证</div>
+      </div>
+      <div class="step-body">
+        <p>提交后，Apple 会分别向你的<strong>手机号</strong>和<strong>邮箱</strong>发送 6 位数验证码。依次输入两个验证码即可。</p>
+        <div class="note tip">
+          <span class="label">提示</span>如果提示"无法创建账户"，通常有三种可能：邮箱已注册过 Apple ID、密码不符合规则、或网络环境异常。换一个邮箱、调整密码或切换无痕窗口重试即可。
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-badge">4</div>
+        <div class="step-title">注册成功，账号已就绪</div>
+      </div>
+      <div class="step-body">
+        <p>看到欢迎页面后，恭喜你，<strong>美区 Apple ID 已经创建完成</strong>。这时账号已经可以登录 App Store，下载所有美区免费应用（包括我们的 App）。</p>
+        <div class="note tip">
+          <span class="label">完成</span>请记下你的 Apple ID（即邮箱）和密码，下一步要在 iPhone 上登录使用。
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Optional address section -->
+  <div style="margin-top: 48px;">
+    <h3 style="font-family: var(--serif); font-size: 22px; font-weight: 600; margin-bottom: 12px;">可选：填写"账单地址"（仅在系统要求时）</h3>
+    <p style="color: var(--ink-soft); margin-bottom: 16px;">
+      大部分情况下，注册完成即可直接使用。如果在登录 App Store 后系统提示需要"完善账单信息"，请在<strong>付款方式</strong>中选择 <code>None（无）</code>，并使用以下<strong>免税州</strong>地址（俄勒冈州，可免除消费税）：
+    </p>
+
+    <div class="address-box">
+      <span class="copy-tag">Oregon · 免税州地址模板</span>
+      <div class="address-row"><span class="key">Street</span><span class="val">1234 NW 23rd Ave</span></div>
+      <div class="address-row"><span class="key">City</span><span class="val">Portland</span></div>
+      <div class="address-row"><span class="key">State</span><span class="val">Oregon (OR)</span></div>
+      <div class="address-row"><span class="key">ZIP Code</span><span class="val">97210</span></div>
+      <div class="address-row"><span class="key">Phone</span><span class="val">(503) 555-0142</span></div>
+    </div>
+
+    <div class="note warn">
+      <span class="label">关于免税</span>美国其他免税州还包括：<strong>Alaska（阿拉斯加）、Delaware（特拉华）、Montana（蒙大拿）、New Hampshire（新罕布什尔）</strong>。下载免费 App 不需要填这些信息，只有付费 App 才会涉及消费税。
+    </div>
+  </div>
+</section>
+
+<!-- SWITCH -->
+<section id="switch">
+  <div class="section-header">
+    <div class="section-num">SECTION&nbsp;03</div>
+    <div>
+      <div class="section-title">在 iPhone 的 App Store 切换到外区账号</div>
+      <div class="section-sub">只切换 App Store 账号，不影响你的 iCloud</div>
+    </div>
+  </div>
+
+  <div class="big-warning">
+    <div class="title">最重要的安全提醒</div>
+    <p>
+      <strong>请只在 App Store 中登录外区账号，绝对不要在"设置 → Apple 账户"中登录 iCloud！</strong>外区 Apple ID 一旦登录 iCloud，如果账号出现异常（如风控、密码错误），整台 iPhone 可能被远程锁定，造成严重损失。本教程演示的方法<strong>只切换 App Store 下载账号</strong>，不动你的 iCloud，完全安全。
+    </p>
+  </div>
+
+  <div class="steps">
+
+    <!-- Step 1 -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-badge">1</div>
+        <div class="step-title">打开 App Store，进入账户页面</div>
+      </div>
+      <div class="step-body">
+        <p>在 iPhone 桌面找到 <strong>App Store</strong> 图标，点击打开。</p>
+        <p>点击右上角的<strong>头像图标</strong>（如果你已登录国区账号，显示的就是你的国区头像），进入"账户"页面。</p>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-badge">2</div>
+        <div class="step-title">退出当前国区账号</div>
+      </div>
+      <div class="step-body">
+        <p>在账户页面中，<strong>一直向下滑动到最底部</strong>，会看到红色的 <strong>"退出登录"（Sign Out）</strong> 按钮，点击它。</p>
+        <div class="phone-mock">
+          <div class="phone-screen">
+            <div class="row"><span class="label-text">购买项目</span><span class="value-text">›</span></div>
+            <div class="row"><span class="label-text">个人化推荐</span><span class="value-text">›</span></div>
+            <div class="row"><span class="label-text">订阅</span><span class="value-text">›</span></div>
+            <div class="row highlight"><span class="label-text">退出登录</span></div>
+          </div>
+        </div>
+        <div class="note tip">
+          <span class="label">放心</span>这只会退出 <strong>App Store</strong> 的登录，不会影响 iCloud、相册、通讯录、查找等任何其他 Apple 服务。
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-badge">3</div>
+        <div class="step-title">使用刚注册的外区 ID 重新登录</div>
+      </div>
+      <div class="step-body">
+        <p>退出后，App Store 顶部会显示登录入口。输入你<strong>新注册的外区 Apple ID</strong>（邮箱）和密码，点击登录。</p>
+        <p>登录时可能会要求输入手机短信验证码，输入后即可。</p>
+        <div class="note warn">
+          <span class="label">如果系统弹出</span>"此 Apple 账户尚未在 iTunes Store 中使用"，点击 <strong>"检查"</strong>，确认国家显示为 <code>United States</code>，付款方式选择 <code>None</code>，地址按上文模板填写，提交即可。
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-badge">4</div>
+        <div class="step-title">搜索并下载本 App</div>
+      </div>
+      <div class="step-body">
+        <p>登录成功后，App Store 已经切换为<strong>美区商店</strong>。此时直接搜索我们的 App 名称，就能正常下载安装了。</p>
+        <div class="note tip">
+          <span class="label">日常使用</span>下载完成后，你可以随时在 App Store 切回国区账号继续使用国区应用，<strong>已下载的外区 App 仍可正常打开</strong>。如需更新外区 App，只需再切回外区账号即可（系统会提示输入对应账号密码）。
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-header">
+    <div class="section-num">SECTION&nbsp;04</div>
+    <div>
+      <div class="section-title">常见问题</div>
+      <div class="section-sub">遇到问题先看这里</div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">切换到外区账号后，原来国区下载的 App 还能用吗？</div>
+    <div class="faq-a">
+      可以正常使用。已经下载安装的 App 不受账号切换影响，但如果需要<strong>更新国区 App</strong>，会提示输入国区账号的密码（输入即可，不会强制切回国区）。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">一个手机号可以注册多少个 Apple ID？会不会冲突？</div>
+    <div class="faq-a">
+      实测一个 +86 中国手机号<strong>可以验证多个不同地区的 Apple ID</strong>，且不会影响账号归属地区，也不会影响你原来的国区账号。这是 Apple 官方允许的。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">注册时提示"无法创建账户"或"该手机号无法使用"怎么办？</div>
+    <div class="faq-a">
+      通常是三种原因：① 邮箱曾注册过 Apple ID（更换全新邮箱）；② 当前网络风控（关闭代理、用无痕模式重试）；③ 短时间内同一手机号注册次数太多（隔几小时再试，或换个邮箱）。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">我必须填写美国地址吗？</div>
+    <div class="faq-a">
+      <strong>下载免费 App 不需要</strong>。只有当系统弹出"完善账单信息"时才需要填，按照本教程提供的俄勒冈州免税地址模板复制粘贴即可。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">为什么不能在"设置"里登录这个外区 ID？</div>
+    <div class="faq-a">
+      "设置 → Apple 账户" 是登录 <strong>iCloud</strong> 的入口，会同步通讯录、照片、查找我的 iPhone 等敏感服务。外区账号一旦异常被锁，可能导致整台手机被远程锁定。所以请<strong>务必只在 App Store 内登录外区账号</strong>，iCloud 始终保持你原来的账号。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">外区账号未来可以买付费 App 吗？</div>
+    <div class="faq-a">
+      可以。最简单的方式是去 <strong>Apple 美国官网</strong>或<strong>亚马逊美国官网</strong>购买美区 Apple Gift Card 礼品卡，然后在 App Store 中"兑换充值卡"。<strong>切勿在第三方电商以低于汇率的价格购买"黑卡"</strong>，会导致账号秒封。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">操作过程中遇到本教程未覆盖的问题怎么办？</div>
+    <div class="faq-a">
+      可以联系我们的客服，提供你看到的错误提示截图，我们会协助你处理。也欢迎将本教程分享给身边有同样需求的朋友。
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="inner">
+    <div class="brand">外区 Apple ID 注册指南</div>
+    <p>本教程基于 2026 年 4 月最新流程整理 · 适用于 iOS 17 及以上系统</p>
+    <div class="divider"></div>
+    <p style="font-size: 12px;">教程仅供本应用用户参考使用 · 注册账号请遵循 Apple 官方服务条款</p>
+  </div>
+</footer>
+
+</body>
+</html>
