@@ -1,262 +1,674 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>安卓APP无法安装的教程</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小米手机安装教程</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
 
-        body {
-            font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+  :root {
+    --orange: #FF6900;
+    --orange-light: #FF8C00;
+    --dark: #0F0F0F;
+    --darker: #080808;
+    --surface: #181818;
+    --surface2: #222222;
+    --border: #2a2a2a;
+    --text: #F0F0F0;
+    --text-muted: #888;
+    --success: #22c55e;
+    --tip: #3B82F6;
+  }
 
-        .container {
-            max-width: 800px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 0.6s ease-out;
-        }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: var(--darker);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-        h1 {
-            color: #667eea;
-            font-size: 32px;
-            margin-bottom: 10px;
-            text-align: center;
-            font-weight: 700;
-        }
+  /* Header */
+  .header {
+    background: var(--dark);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    height: 56px;
+    gap: 12px;
+  }
 
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
+  .header-logo {
+    width: 28px;
+    height: 28px;
+    background: var(--orange);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 900;
+    color: white;
+    flex-shrink: 0;
+  }
 
-        .alert-box {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 30px 40px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            font-size: 17px;
-            line-height: 2;
-            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
-            text-align: center;
-        }
+  .header-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
 
-        .alert-box strong {
-            font-size: 22px;
-            display: block;
-            margin-bottom: 18px;
-            font-weight: 600;
-        }
+  .header-badge {
+    margin-left: auto;
+    background: #FF3B30;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
 
-        .alert-box p {
-            margin: 0;
-            font-size: 17px;
-        }
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1a0a00 0%, #0F0F0F 60%);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 24px 32px;
+    position: relative;
+    overflow: hidden;
+  }
 
-        .section {
-            margin-bottom: 30px;
-        }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(255,105,0,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
 
-        .section-title {
-            color: #333;
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            padding-left: 15px;
-            border-left: 4px solid #667eea;
-        }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,105,0,0.15);
+    border: 1px solid rgba(255,105,0,0.3);
+    color: var(--orange);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+  }
 
-        .step {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            display: flex;
-            align-items: flex-start;
-        }
+  .hero-tag::before { content: '⚠'; font-size: 12px; }
 
-        .step:hover {
-            transform: translateX(5px);
-            border-color: #667eea;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
-        }
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 900;
+    line-height: 1.25;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
 
-        .step-number {
-            flex-shrink: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 32px;
-            font-weight: bold;
-            margin-right: 12px;
-            font-size: 16px;
-        }
+  .hero h1 span { color: var(--orange); }
 
-        .step-content {
-            flex: 1;
-            color: #333;
-            font-size: 16px;
-            line-height: 1.8;
-            padding-top: 3px;
-        }
+  .hero p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
 
-        .highlight {
-            color: #667eea;
-            font-weight: 600;
-        }
+  /* Quick Tips */
+  .quick-tips {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    background: var(--dark);
+  }
 
-        .success-icon {
-            text-align: center;
-            font-size: 48px;
-            margin: 20px 0;
-        }
+  .tip-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(59,130,246,0.08);
+    border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
 
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
+  .tip-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
 
-            .container {
-                padding: 20px;
-                border-radius: 15px;
-            }
+  .tip-text {
+    font-size: 13px;
+    color: #93C5FD;
+    line-height: 1.5;
+  }
 
-            h1 {
-                font-size: 24px;
-            }
+  .tip-text strong {
+    color: #BFDBFE;
+    display: block;
+    margin-bottom: 2px;
+    font-weight: 600;
+  }
 
-            .subtitle {
-                font-size: 14px;
-            }
+  /* Section label */
+  .section-label {
+    padding: 24px 24px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
 
-            .alert-box {
-                padding: 20px 25px;
-                font-size: 15px;
-                line-height: 1.8;
-            }
+  /* Method Cards */
+  .methods {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0 16px 16px;
+  }
 
-            .alert-box strong {
-                font-size: 18px;
-                margin-bottom: 15px;
-            }
+  .method-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
 
-            .alert-box p {
-                font-size: 15px;
-            }
+  .method-card:hover { border-color: #3a3a3a; }
 
-            .section-title {
-                font-size: 18px;
-                padding-left: 12px;
-            }
+  .method-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
 
-            .section p {
-                font-size: 14px;
-                padding-left: 12px;
-            }
+  .method-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
 
-            .step {
-                padding: 15px;
-            }
+  .method-num.n1 { background: rgba(255,105,0,0.15); color: var(--orange); }
+  .method-num.n2 { background: rgba(34,197,94,0.12); color: #22c55e; }
+  .method-num.n3 { background: rgba(168,85,247,0.12); color: #a855f7; }
 
-            .step-number {
-                width: 28px;
-                height: 28px;
-                line-height: 28px;
-                font-size: 14px;
-                margin-right: 10px;
-            }
+  .method-info { flex: 1; }
 
-            .step-content {
-                font-size: 14px;
-                line-height: 1.6;
-            }
-        }
-    </style>
+  .method-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 3px;
+    line-height: 1.3;
+  }
+
+  .method-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .method-arrow {
+    font-size: 18px;
+    color: var(--text-muted);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+
+  .method-card.open .method-arrow { transform: rotate(90deg); }
+
+  /* Steps */
+  .method-steps {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+
+  .method-card.open .method-steps { max-height: 600px; }
+
+  .steps-inner {
+    padding: 0 18px 18px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+
+  .step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .step:last-child { margin-bottom: 0; }
+
+  .step-dot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .step-circle {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .step-line {
+    width: 1.5px;
+    flex: 1;
+    background: var(--border);
+    margin-top: 4px;
+    min-height: 10px;
+  }
+
+  .step:last-child .step-line { display: none; }
+
+  .step-content {
+    padding-top: 2px;
+    padding-bottom: 8px;
+  }
+
+  .step-text {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: #D0D0D0;
+  }
+
+  .step-text strong {
+    color: white;
+    font-weight: 600;
+  }
+
+  .step-path {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px;
+    margin-top: 6px;
+  }
+
+  .path-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 2px 8px;
+    font-size: 12px;
+    color: #ccc;
+    font-weight: 500;
+  }
+
+  .path-sep {
+    color: var(--text-muted);
+    font-size: 11px;
+    padding: 0 1px;
+  }
+
+  /* Warning note */
+  .note {
+    display: flex;
+    gap: 8px;
+    background: rgba(255,59,48,0.07);
+    border: 1px solid rgba(255,59,48,0.2);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 12px;
+  }
+
+  .note-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  .note-text {
+    font-size: 12px;
+    color: #FCA5A5;
+    line-height: 1.5;
+  }
+
+  /* Footer */
+  .footer {
+    margin: 8px 16px 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+  }
+
+  .footer-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+
+  .footer-text {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .footer-steps {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+
+  .footer-step {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .footer-step .num {
+    width: 16px; height: 16px;
+    background: var(--orange);
+    border-radius: 50%;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>📱 安卓APP安装教程</h1>
-        <p class="subtitle">遇到安装问题？请按照以下步骤操作</p>
 
-        <div class="alert-box">
-            <strong>⚠️ 快速解决方法</strong>
-            <p>部分安卓手机遇到无法安装，请<strong>开启飞行模式断网安装</strong>安装成功后再关闭飞行模式。</p>
-        </div>
+<div class="header">
+  <div class="header-logo">MI</div>
+  <div class="header-title">小米手机安装教程</div>
+  <div class="header-badge">已更新</div>
+</div>
 
-        <div class="section">
-            <div class="section-title">小米/澎湃OS手机专属解决方案</div>
-            <p style="color: #666; margin-bottom: 20px; padding-left: 15px;">如果开启飞行模式后仍无法安装，主要是因为APP被小米系统拦截了，需要关闭"启用系统优化"。</p>
+<div class="hero">
+  <div class="hero-tag">系统拦截解决方案</div>
+  <h1>无法安装 APP？<br><span>按步骤操作即可</span></h1>
+  <p>小米 MIUI / HyperOS 系统近期升级了安全拦截机制，请按以下方法依次尝试解决。</p>
+</div>
 
-            <div class="step">
-                <span class="step-number">1</span>
-                <span class="step-content">打开手机的<span class="highlight">【设置】</span>应用</span>
-            </div>
-
-            <div class="step">
-                <span class="step-number">2</span>
-                <span class="step-content">点击<span class="highlight">【我的设备】</span>，然后向下滑动，点击<span class="highlight">【全部参数与信息】</span></span>
-            </div>
-
-            <div class="step">
-                <span class="step-number">3</span>
-                <span class="step-content">在全部参数界面里，连续点击<span class="highlight">【OS版本】</span>区域<strong>七次</strong>，开启开发者模式</span>
-            </div>
-
-            <div class="step">
-                <span class="step-number">4</span>
-                <span class="step-content">返回<span class="highlight">【设置】</span>界面，向下滑动到最底部，点击<span class="highlight">【更多设置】</span></span>
-            </div>
-
-            <div class="step">
-                <span class="step-number">5</span>
-                <span class="step-content">继续向下滑动到最下面，点击<span class="highlight">【开发者选项】</span></span>
-            </div>
-
-            <div class="step">
-                <span class="step-number">6</span>
-                <span class="step-content">在开发者选项中，滑动到最底部，找到<span class="highlight">【启用系统优化】</span>，将其<strong>关闭</strong></span>
-            </div>
-
-            <div class="step">
-                <span class="step-number">7</span>
-                <span class="step-content">返回安装包，重新点击安装APP即可成功安装</span>
-            </div>
-        </div>
-
-        <div class="success-icon">✅</div>
+<div class="quick-tips">
+  <div class="tip-card">
+    <div class="tip-icon">🌐</div>
+    <div class="tip-text">
+      <strong>无法下载？</strong>
+      请使用 Chrome 浏览器重新下载安装包。
     </div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">✈️</div>
+    <div class="tip-text">
+      <strong>下载后无法安装？</strong>
+      请先打开<strong>飞行模式断网</strong>，再进行安装。
+    </div>
+  </div>
+</div>
+
+<div class="section-label">三种解决方案</div>
+
+<div class="methods">
+
+  <!-- Method 1 -->
+  <div class="method-card open" onclick="toggle(this)">
+    <div class="method-header">
+      <div class="method-num n1">1</div>
+      <div class="method-info">
+        <div class="method-title">关闭系统优化（开发者模式）</div>
+        <div class="method-desc">绕过 MIUI 安装审查最有效的方法</div>
+      </div>
+      <div class="method-arrow">›</div>
+    </div>
+    <div class="method-steps">
+      <div class="steps-inner">
+
+        <div class="step">
+          <div class="step-dot">
+            <div class="step-circle">1</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-text">进入 <strong>设置</strong>，依次点击：</div>
+            <div class="step-path">
+              <span class="path-item">设置</span>
+              <span class="path-sep">›</span>
+              <span class="path-item">我的设备</span>
+              <span class="path-sep">›</span>
+              <span class="path-item">全部参数</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-dot">
+            <div class="step-circle">2</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-text">找到 <strong>MIUI 版本</strong>，<strong>连续点击 7 次</strong>，直到提示"已进入开发者模式"。</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-dot">
+            <div class="step-circle">3</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-text">返回后进入：</div>
+            <div class="step-path">
+              <span class="path-item">设置</span>
+              <span class="path-sep">›</span>
+              <span class="path-item">更多设置</span>
+              <span class="path-sep">›</span>
+              <span class="path-item">开发者选项</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-dot">
+            <div class="step-circle">4</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-text">滑到页面<strong>最底部</strong>，<strong>连续点击"重置为默认值"</strong>，直到出现 <strong>"启用系统优化"</strong> 开关。</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-dot">
+            <div class="step-circle">5</div>
+          </div>
+          <div class="step-content">
+            <div class="step-text"><strong>关闭"启用系统优化"</strong>开关，重启后重新安装 APP。</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Method 2 -->
+  <div class="method-card" onclick="toggle(this)">
+    <div class="method-header">
+      <div class="method-num n2">2</div>
+      <div class="method-info">
+        <div class="method-title">关闭安全守护</div>
+        <div class="method-desc">停用 MIUI 系统级安全审查服务</div>
+      </div>
+      <div class="method-arrow">›</div>
+    </div>
+    <div class="method-steps">
+      <div class="steps-inner">
+
+        <div class="step">
+          <div class="step-dot">
+            <div class="step-circle">1</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-text">进入路径：</div>
+            <div class="step-path">
+              <span class="path-item">设置</span>
+              <span class="path-sep">›</span>
+              <span class="path-item">隐私与安全</span>
+              <span class="path-sep">›</span>
+              <span class="path-item">安全</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-dot">
+            <div class="step-circle">2</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-text">点击 <strong>安全守护</strong>，进入后点击<strong>右上角菜单</strong>。</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-dot">
+            <div class="step-circle">3</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-text">点击 <strong>安全守护设置</strong>，再次点击右上角菜单。</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-dot">
+            <div class="step-circle">4</div>
+          </div>
+          <div class="step-content">
+            <div class="step-text"><strong>关闭安全守护</strong>开关，然后重新安装 APP。</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Method 3 -->
+  <div class="method-card" onclick="toggle(this)">
+    <div class="method-header">
+      <div class="method-num n3">3</div>
+      <div class="method-info">
+        <div class="method-title">关闭手机管家病毒扫描</div>
+        <div class="method-desc">停用安装监控与云端杀毒</div>
+      </div>
+      <div class="method-arrow">›</div>
+    </div>
+    <div class="method-steps">
+      <div class="steps-inner">
+
+        <div class="step">
+          <div class="step-dot">
+            <div class="step-circle">1</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-text">打开<strong>手机管家</strong> APP。</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-dot">
+            <div class="step-circle">2</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-text">点击<strong>右上角设置图标</strong>，找到并点击 <strong>病毒扫描</strong>。</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-dot">
+            <div class="step-circle">3</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-text">关闭以下两个选项：<br><strong>· 使用云端杀毒</strong><br><strong>· 安装监控</strong></div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-dot">
+            <div class="step-circle">4</div>
+          </div>
+          <div class="step-content">
+            <div class="step-text"><strong>断网（飞行模式）</strong>后重新安装 APP。</div>
+          </div>
+        </div>
+
+        <div class="note">
+          <div class="note-icon">⚡</div>
+          <div class="note-text">本方法建议与方法一、二<strong>配合使用</strong>，断网安装成功率更高。</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-title">建议操作顺序</div>
+  <div class="footer-text">以上三种方法可单独使用，<br>也可同时操作后再安装，成功率最高。</div>
+  <div class="footer-steps">
+    <div class="footer-step"><span class="num">1</span> 关闭系统优化</div>
+    <div class="footer-step"><span class="num">2</span> 关闭安全守护</div>
+    <div class="footer-step"><span class="num">3</span> 断网安装</div>
+  </div>
+</div>
+
+<script>
+  function toggle(card) {
+    card.classList.toggle('open');
+  }
+</script>
+
 </body>
 </html>
