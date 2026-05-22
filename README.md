@@ -1,2 +1,2 @@
 # download
-火种VPN下载
+HZVPN download
